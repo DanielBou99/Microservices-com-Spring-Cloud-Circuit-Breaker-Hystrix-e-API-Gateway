@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import br.com.alura.microservice.loja.client.FornecedorClient;
 import br.com.alura.microservice.loja.controller.dto.CompraDTO;
 import br.com.alura.microservice.loja.controller.dto.InfoFornecedorDTO;
@@ -23,6 +25,7 @@ public class CompraService {
 	@Autowired
 	private FornecedorClient fornecedorClient;
 	
+	@HystrixCommand(fallbackMethod = "realizaCompraFallback")
 	public Compra realizaCompra(CompraDTO compra) {
 		
 		final String estado = compra.getEndereco().getEstado();
@@ -39,6 +42,12 @@ public class CompraService {
 		compraSalva.setEnderecoDestino(compra.getEndereco().toString());
 		
 		return compraSalva;
+	}
+	
+	public Compra realizaCompraFallback(CompraDTO compra) {
+		Compra compraFallback = new Compra();
+		compraFallback.setEnderecoDestino(compra.getEndereco().toString());
+		return compraFallback;
 	}
 
 }

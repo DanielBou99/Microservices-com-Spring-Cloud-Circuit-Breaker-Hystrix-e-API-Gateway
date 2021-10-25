@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.microservice.transportador.dto.EntregaDTO;
 import br.com.alura.microservice.transportador.dto.VoucherDTO;
-import br.com.alura.microservice.transportador.model.Entrega;
 import br.com.alura.microservice.transportador.service.EntregaService;
 
 @RestController

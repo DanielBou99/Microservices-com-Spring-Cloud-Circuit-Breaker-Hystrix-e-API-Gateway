@@ -8,5 +8,5 @@ spring:
         default-label: main
         git:
           uri: https://github.com/DanielBou99/microservice-repo/
-          search-paths: fornecedor
+          search-paths: fornecedor, loja
           
